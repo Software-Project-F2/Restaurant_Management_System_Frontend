@@ -1,0 +1,50 @@
+/*colors: buttons-#4A44FA
+          headings-#282487
+          navbar-#6A007A
+*/
+
+/* title */
+
+#title .container-fluid{
+    padding: 1% 10% 5%;
+}
+
+.title-parent
+{
+    position: relative;
+    z-index: -1;
+}
+
+.title-text
+{
+    position: absolute;
+    top: 0px;
+    height: 650px;
+}
+
+.title-image
+{
+    z-index: -1;
+    position: absolute;
+    height: 650px;
+}
+
+
+.main-img
+{
+    width: 100%;
+    height: 650px;
+}
+
+@media screen and (max-width: 900px) {
+    .main-img
+    {
+        height: 400px;
+    }
+}
+
+.title-content
+{
+    margin-top: 15%;
+    width: 30%;
+}

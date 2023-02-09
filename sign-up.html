@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.108.0">
+    <title>Signup</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/sign-in/">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+
+    
+    <!-- Custom styles for this template -->
+    <link href="signup-styles.css" rel="stylesheet">
+  </head>
+  <body class="text-center">
+    
+    <main class="form-signin w-100 m-auto">
+      <form method="post">
+        <img class="mb-4" src="images/logo.jpg" alt="logo-img" width="72" height="72">
+        <h1 class="h3 mb-3 fw-normal">Sign up for my Newsletter</h1>
+
+        <div class="form-floating">
+          <input type="text" class="form-control" id="first-name-input" placeholder="name@example.com" name="fName">
+          <label for="floatingInput">First Name</label>
+        </div>
+        <div class="form-floating">
+          <input type="text" class="form-control" id="last-name-input" placeholder="Password" name="lName">
+          <label>Last Name</label>
+        </div>
+        <div class="form-floating">
+            <input type="email" class="form-control" id="email-input" placeholder="name@example.com" name="email">
+            <label for="floatingInput">Email address</label>
+        </div>
+        <div class="form-floating">
+          <input type="password" class="form-control" id="password" placeholder="Password" name="password">
+          <label for="floatingPassword">Password</label>
+        </div>
+        <div class="form-floating">
+          <input type="password" class="form-control" id="confirm-password" placeholder="Confirm Password" name="confirmPassword">
+          <label for="floatingPassword">Confirm Password</label>
+        </div>
+        <select class="form-select" id="role" aria-label="Default select example">
+          <option selected>Select </option>
+          <option value="one">One</option>
+          <option value="two">Two</option>
+        </select>
+
+
+        <button class="w-100 btn btn-lg btn-primary" type="submit">Sign Me Up!</button>
+        <p class="mt-5 mb-3 text-muted">&copy; Ishan Mulchandani</p>
+      </form>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script>
+
+      let btn = document.querySelector("button");
+      btn.addEventListener("click", async function(e){
+
+        e.preventDefault();
+
+        let fName = document.querySelector("input[name=fname]").value;
+        let lName = document.querySelector("input[name=lname]").value;
+        let email = document.querySelector("input[name=email]").value;
+        let password = document.querySelector("input[name=password]").value;
+        let confirmPassword = document.querySelector("input[name=confirmPassword]").value;
+        let role = document.querySelector("#role").value;
+
+        let resp = await axios.post("address", {fName, lName, email, password, confirmPassword, role});
+        console.log(resp);
+
+      });
+
+    </script>
+    
+  </body>
+</html>
