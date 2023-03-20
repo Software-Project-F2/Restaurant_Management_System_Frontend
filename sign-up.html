@@ -77,6 +77,12 @@
       let role = document.querySelector("#role").value;
       console.log(role);
 
+      document.getElementById("f_error").innerHTML = "";
+      document.getElementById("l_error").innerHTML = "";
+      document.getElementById("e_error").innerHTML = "";
+      document.getElementById("pass_error").innerHTML = "";
+      document.getElementById("cf_error").innerHTML = "";
+
       // validation
       var name_p = /^[a-z A-Z]+$/;
       if (!fName.match(name_p)) {
