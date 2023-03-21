@@ -11,16 +11,23 @@
 <body>
 
     <div class="container-fluid">
-        <form action="/edit-menu.html" name="items-from">
-            Item Name: <input type="text" name="iName"><br>
-            Item Price: <input type="text" name="iPrice"><br>
-        </form>
-
-        <button onclick="addItem()">Add Item!</button>
+        
     
         <section id="menu">
             <h1>Menu</h1>
-            <div class="row row1"></div>
+            <div class="row row1">
+                <div class="col-lg-3 col-md-6">
+                    <div class="item-card inp-card" style="text-align: left;">
+                        <form action="/edit-menu.html" name="items-from">
+                            <label class="form-label">Item Name</label>
+                            <input type="text" name="iName" class="form-control">
+                            <label class="form-label">Item Price</label>
+                            <input type="text" name="iPrice" class="form-control">
+                        </form>
+                        <button class="butn" onclick="addItem()">Add Item!</button>
+                    </div>
+                </div>
+            </div>
             
         </section>
     </div>
@@ -28,13 +35,12 @@
     <script>
 
         let rowCount = 1;
-        let itemCount = 0;
+        let itemCount = 1;
 
         function addItem(){
 
             let itemName = document.querySelector("input[name=iName]");
             let itemPrice = document.querySelector("input[name=iPrice]");
-            console.log(itemName + " " + itemPrice);
 
             itemCount++;
 
@@ -48,8 +54,11 @@
                 currentRow.classList.add("row", "row"+ rowCount);
                 menu.appendChild(currentRow);
             }
+            let column = document.createElement("div");
+            column.classList.add("col-lg-3", "col-md-6")
+            currentRow.appendChild(column);
             let itemCard = document.createElement("div");
-            itemCard.classList.add("item-card", "col-lg-3");
+            itemCard.classList.add("item-card", );
             let name = document.createElement("h3");
             name.classList.add("item-name");
             name.innerHTML = itemName.value;
@@ -58,7 +67,7 @@
             price.classList.add("item-price");
             price.innerHTML = itemPrice.value; 
             itemCard.appendChild(price);
-            currentRow.appendChild(itemCard);
+            column.appendChild(itemCard);
 
             itemName.value = "";
             itemPrice.value = "";
