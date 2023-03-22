@@ -13,7 +13,7 @@
     <main class="form-signin w-100 m-auto">
         <form method="post">
           <img class="mb-4" src="images/logo.jpg" alt="logo-img" width="72" height="72">
-          <h1 class="h3 mb-3 fw-normal">Sign up</h1>
+          <h1 class="h3 mb-3 fw-normal">Login</h1>
     
           
           <div class="form-floating">
@@ -26,12 +26,38 @@
             <label for="floatingPassword">Password</label>
             <span id="pass_error"></span>
           </div>
-          
-    
-          
-          <button class="w-100 btn btn-lg btn-primary" type="submit">Sign Me Up!</button>
-          <p class="mt-5 mb-3 text-muted">&copy; ayaan agarwal</p>
         </form>
+        <button class="w-100 btn btn-lg btn-primary" type="submit" onclick="login()">Login!</button>
       </main>
+
+      <script>
+        function login(){
+          let email = document.getElementById("email-input").value;
+          let password = document.getElementById("password").value;
+
+          let currentUser = {
+            "email": email,
+            "password": password
+          };
+
+          fetch('https://restro-management.vercel.app/user/login', {
+            method: 'POST',
+            body: JSON.stringify(currentUser),
+            headers: {
+              'Content-type': 'application/json; charset=UTF-8'
+            }
+          })
+            .then((response) => response.json())
+            .then((json) => {
+              console.log(json);
+              let jwtToken = json.data.user.token;
+              let userId = json.data.user._id;
+              sessionStorage.setItem("jwtToken", jwtToken);
+              sessionStorage.setItem("userId", userId);
+            });
+
+        }
+      </script>
+
 </body>
 </html>
