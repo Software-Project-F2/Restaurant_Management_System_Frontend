@@ -55,6 +55,11 @@ label{
 
 /*View Menu CSS*/
 
-.view-menu{
-    display: flex;
+#restaurant{
+    text-align: center;
+}
+
+select{
+    margin: 3% 0;
+    text-align: center;
 }

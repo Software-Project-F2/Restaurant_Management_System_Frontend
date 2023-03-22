@@ -19,21 +19,47 @@ function addItem(){
         currentRow.classList.add("row", "row"+ rowCount);
         menu.appendChild(currentRow);
     }
+
+    let column = createColumn(itemName.value, itemPrice.value);
+
+    currentRow.appendChild(column);
+
+    itemName.value = "";
+    itemPrice.value = "";
+}
+
+function createColumn(iName, iPrice){
     let column = document.createElement("div");
     column.classList.add("col-lg-3", "col-md-6")
-    currentRow.appendChild(column);
     let itemCard = document.createElement("div");
     itemCard.classList.add("item-card", );
     let name = document.createElement("h3");
     name.classList.add("item-name");
-    name.innerHTML = itemName.value;
+    name.innerHTML = iName;
     itemCard.appendChild(name);
     let price = document.createElement("h4");
     price.classList.add("item-price");
-    price.innerHTML = itemPrice.value; 
+    price.innerHTML = iPrice; 
     itemCard.appendChild(price);
     column.appendChild(itemCard);
+    return column;
+}
 
-    itemName.value = "";
-    itemPrice.value = "";
+function displayMenu(ic){
+    const menu = document.getElementById("menu");
+    
+    x.forEach(item => {
+        ic++;
+        let currentRow = document.querySelector(".row"+rowCount);
+        if(ic%4 === 0){
+            rowCount++;
+            let currentRow = document.createElement("div");
+            currentRow.classList.add("row", "row"+ rowCount);
+            menu.appendChild(currentRow);
+        }
+        
+        let column = createColumn(item.Name, item.Price);
+        currentRow.appendChild(column);
+    });
+    itemCount = ic;
 }
