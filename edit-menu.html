@@ -18,12 +18,14 @@
             <h1>Menu</h1>
             <div class="row row1">
                 <div class="col-lg-3 col-md-6">
-                    <div class="item-card inp-card" style="text-align: left;">
+                    <div class="item-card inp-card" style="text-align: left; padding-top: 5%;">
                         <form action="/edit-menu.html" name="items-from">
                             <label class="form-label">Item Name</label>
-                            <input type="text" name="iName" class="form-control" required>
+                            <input type="text" name="iName" class="form-control">
                             <label class="form-label">Item Price</label>
-                            <input type="text" name="iPrice" class="form-control" required>
+                            <input type="text" name="iPrice" class="form-control">
+                            <label class="form-label">Available Quantity</label>
+                            <input type="text" name="iQuantity" class="form-control">
                         </form>
                         <button class="butn" onclick="addItem()">Add Item!</button>
                     </div>

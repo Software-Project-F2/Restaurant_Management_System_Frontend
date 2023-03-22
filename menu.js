@@ -6,6 +6,7 @@ function addItem(){
 
     let itemPrice = document.querySelector("input[name=iPrice]");
     let itemName = document.querySelector("input[name=iName]");
+    let itemQuantity = document.querySelector("input[name=iQuantity");
 
     itemCount++;
     
@@ -20,15 +21,16 @@ function addItem(){
         menu.appendChild(currentRow);
     }
 
-    let column = createColumn(itemName.value, itemPrice.value);
+    let column = createColumn(itemName.value, itemPrice.value, itemQuantity.value);
 
     currentRow.appendChild(column);
 
     itemName.value = "";
     itemPrice.value = "";
+    itemQuantity.value = "";
 }
 
-function createColumn(iName, iPrice){
+function createColumn(iName, iPrice, iQuantity){
     let column = document.createElement("div");
     column.classList.add("col-lg-3", "col-md-6")
     let itemCard = document.createElement("div");
@@ -41,6 +43,10 @@ function createColumn(iName, iPrice){
     price.classList.add("item-price");
     price.innerHTML = iPrice; 
     itemCard.appendChild(price);
+    let quantity = document.createElement("em");
+    price.classList.add("item-quantity");
+    quantity.innerHTML = iQuantity + " items are available"; 
+    itemCard.appendChild(quantity);
     column.appendChild(itemCard);
     return column;
 }
