@@ -119,6 +119,6 @@ function displayMenu(ic){
 
 function deleteItem(e){
     let delColumn =  e.srcElement.parentElement.parentElement;
-    
-
+    let row = delColumn.parentElement;
+    console.log(row);
 }

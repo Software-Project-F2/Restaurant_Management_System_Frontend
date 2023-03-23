@@ -138,7 +138,7 @@
           .then((response) => response.json())
           .then((json) => {
             console.log(json);
-            let jwtToken = json.data.token.val;
+            let jwtToken = json.data.user.token;
             sessionStorage.setItem("jwtToken", jwtToken);
           });
 

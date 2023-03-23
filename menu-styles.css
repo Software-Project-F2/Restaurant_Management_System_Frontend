@@ -72,3 +72,17 @@ select{
     margin: 3% 0;
     text-align: center;
 }
+
+#view-menu{
+    display: flex;
+    margin: 7% 0;
+}
+
+.left{
+    width: 70%;
+    border: 1px red solid;
+}
+
+.right{
+    width: 30%;
+}
