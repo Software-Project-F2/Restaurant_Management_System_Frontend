@@ -55,6 +55,7 @@
         <option value="user">user</option>
         <option value="restaurant">restaurant</option>
       </select>
+      <span class="role_error"></span>
 
 
       <button class="w-100 btn btn-lg btn-primary" type="submit">Sign Me Up!</button>
@@ -118,6 +119,19 @@
         document.getElementById("cf_error").innerHTML = "password does not match ";
         valid = false;
       }
+
+
+      if(role === "user" || role === "restaurant")
+      {
+        document.getElementById("role_error").innerHTML = "";
+      }
+      else
+      {
+        document.getElementById("role_error").innerHTML = "Select your role";
+        valid = false;
+      }
+
+      
 
       if(valid){
         let newUser = {
