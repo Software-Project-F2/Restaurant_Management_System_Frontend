@@ -35,6 +35,7 @@ label{
 }
 
 .butn{
+    color: white;
     font-size: 1.15rem;
     border: none;
     width: 100px;
@@ -74,15 +75,26 @@ select{
 }
 
 #view-menu{
-    display: flex;
     margin: 7% 0;
 }
 
-.left{
-    width: 70%;
-    border: 1px red solid;
+.add-butn{
+    margin: 40px;
 }
 
-.right{
-    width: 30%;
+.cart{
+    padding-top: 3%;
+    padding-bottom: 15%;
+    background-color: rgb(224, 222, 221);
+    margin-bottom: 50px;
+    border-radius: 20px;
+    text-align: center;
+}
+
+.cart-item{
+    width: 40%;
+    background-color: #ebf4f9;
+    border-radius: 10px;
+    font-size: 1.5rem;
+    margin: 10px auto;
 }
