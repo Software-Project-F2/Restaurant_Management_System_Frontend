@@ -13,8 +13,13 @@ function displayRestaurants(){
     .then((response) => response.json())
     .then((json) => {
             console.log(json);
-            json.forEach(user => {
-                if(user.)
+            json.forEach(ele => {
+                if(ele.role === "restaurant"){
+                    let option = document.createElement("option");
+                    option.setAttribute("value", ele.name);
+                    option.innerHTML = ele.name;
+                    select.appendChild(option);
+                }
             });
         });
 }
