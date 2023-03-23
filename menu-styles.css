@@ -49,6 +49,10 @@ label{
     color: rgb(255, 68, 0);
 }
 
+.del-butn{
+    margin: 40px;
+}
+
 .item-name{
     margin: 20px 0;
 }

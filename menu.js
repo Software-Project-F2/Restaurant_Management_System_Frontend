@@ -38,6 +38,7 @@ async function addItem(){
         })
             .then((response) => response.json())
             .then((json) =>{
+                console.log(json);
                 let currentRow = document.querySelector(".row"+rowCount);
 
                 const menu = document.getElementById("menu");
@@ -76,6 +77,11 @@ function createColumn(iName, iPrice, iQuantity){
     price.classList.add("item-quantity");
     quantity.innerHTML = iQuantity + " items are available"; 
     itemCard.appendChild(quantity);
+    let delButn = document.createElement("button");
+    delButn.classList.add("butn", "del-butn");
+    delButn.innerHTML = "delete";
+    delButn.addEventListener("click", deleteItem);
+    itemCard.appendChild(delButn);
     column.appendChild(itemCard);
     return column;
 }
@@ -111,4 +117,8 @@ function displayMenu(ic){
     });
 }
 
-displayMenu(1);
+function deleteItem(e){
+    let delColumn =  e.srcElement.parentElement.parentElement;
+    
+
+}
