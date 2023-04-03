@@ -12,7 +12,7 @@
 <body>
     <main class="form-signin w-100 m-auto">
         <form method="post">
-          <img class="mb-4" src="images/logo.jpg" alt="logo-img" width="72" height="72">
+          <img class="mb-4" src="images/logo-img.jpg" alt="logo-img" width="80%" style="margin-left: 20px;">
           <h1 class="h3 mb-3 fw-normal">Login</h1>
     
           
@@ -29,17 +29,14 @@
         </form>
         <button class="w-100 btn btn-lg btn-primary" type="submit" onclick="login()">Login!</button>
       </main>
-
       <script>
         function login(){
           let email = document.getElementById("email-input").value;
           let password = document.getElementById("password").value;
-
           let currentUser = {
             "email": email,
             "password": password
           };
-
           fetch('https://restro-management.vercel.app/user/login', {
             method: 'POST',
             body: JSON.stringify(currentUser),
@@ -58,6 +55,5 @@
 
         }
       </script>
-
 </body>
 </html>
