@@ -1,4 +1,3 @@
-
 let rowCount = 1;
 let itemCount = 1;
 

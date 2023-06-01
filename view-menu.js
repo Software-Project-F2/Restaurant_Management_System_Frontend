@@ -1,6 +1,3 @@
-const menu = document.querySelector(".left");
-const cart = document.querySelector(".right");
-
 let itemCount = 0;
 let ic = 0;
 let rowCount = 1;
