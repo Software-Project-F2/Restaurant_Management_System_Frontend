@@ -102,7 +102,6 @@ function addItem(e){
     cartItem.setAttribute('data-id', id);
     let cart = document.getElementsByClassName("cart")[0];
     cart.appendChild(cartItem);
-    console.log(cartItem);
 }
 
 function placeOrder() {
@@ -111,10 +110,10 @@ function placeOrder() {
     const items = [];
 
     cartItems.forEach(cartItem => {
-        console.log(cartItem);
-        const itemName = cartItem.getAttribute("data-id");
+        const itemId = cartItem.getAttribute("data-id");
+        const itemName = cartItem.innerHTML;
         const itemQuantity = 1;
-        items.push({ name: itemName, quantity: itemQuantity });
+        items.push({ id:itemId, name: itemName, quantity: itemQuantity });
     });
 
     const requestBody = {
@@ -135,8 +134,8 @@ function placeOrder() {
     .then(data => {
         console.log("Order placed successfully:", data);
         alert("Your order has been placed!");
-        const cart = document.querySelector('.cart');
-        cart.remoreChild(cartItems);
+        // const cart = document.querySelector('.cart');
+        // cart.remoreChild(cartItems);
     })
     .catch(error => {
         console.error("Error placing order:", error);

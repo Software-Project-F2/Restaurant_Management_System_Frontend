@@ -2,20 +2,102 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Orders</title>
-    <link rel="stylesheet" href="fiest.js">
+    <title>My Orders</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+      crossorigin="anonymous"
+    />
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+      crossorigin="anonymous"
+    ></script>
+    <!-- Custom CSS -->
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .order-card {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s ease;
+        }
+
+        .order-card:hover {
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .order-number {
+            color: #007bff;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
-    <h1>Hello World</h1>
-    <div id="display-data" style="padding: 3% 15%;">
-        <div id="items">
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">My Orders</h1>
 
+        <div id="ordersContainer" class="row">
+            <!-- Orders will be dynamically added here -->
         </div>
     </div>
-</div>
-    <script src="order-page.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Function to fetch orders from API and display them
+        async function fetchOrders() {
+            try {
+                fetch('https://restro-management.vercel.app/order/getAll', {
+                    method: 'GET',
+                    headers: {
+                        'Content-type': 'application/json; charset=UTF-8',
+                        Authorization: "Bearer " + sessionStorage.getItem("jwtToken")
+                    }
+                })
+                .then((response) => response.json())
+                .then((json) =>{
+                    console.log(json)
+                    const ordersContainer = document.getElementById('ordersContainer');
+
+                    json.forEach(order => {
+                    console.log(order)
+                    const orderCard = document.createElement('div');
+                    orderCard.classList.add('col-lg-6', 'mb-4');
+
+                    orderCard.innerHTML = `
+                        <div class="card order-card">
+                            <div class="card-body">
+                                <h5 class="card-title">Order <span class="order-number">#${order._id}</span></h5>
+                                <p class="card-text"><strong>Items:</strong> ${order.items.map(item => item.name).join(', ')}</p>
+                                <p class="card-text"><strong>Status:</strong> ${order.status}</p>
+                            </div>
+                        </div>
+                    `;
+
+                    ordersContainer.appendChild(orderCard);
+                });
+                });
+            } catch (error) {
+                console.error('Error fetching orders:', error);
+            }
+        }
+
+        // Function to calculate total amount of an order
+        function calculateTotal(items) {
+            return items.reduce((total, item) => total + (item.quantity || 1), 0); // Assuming each item costs 10 USD
+        }
+
+        // Fetch orders when the page loads
+        fetchOrders();
+    </script>
 </body>
 </html>
-
