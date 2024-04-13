@@ -51,8 +51,12 @@
               let userId = json.data.user._id;
               sessionStorage.setItem("jwtToken", jwtToken);
               sessionStorage.setItem("userId", userId);
+              if(json.message == "Success" && json.data.user.role == 'user') {
+                window.location.href = "view-menu.htm";
+              } else if (json.message == "Success" && json.data.user.role == 'restaurant') {
+                window.location.href = "edit-menu.htm";
+              }
             });
-
         }
       </script>
 </body>

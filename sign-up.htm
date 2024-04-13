@@ -144,15 +144,16 @@
             console.log(json);
             let jwtToken = json.data.user.token;
             sessionStorage.setItem("jwtToken", jwtToken);
+            if(json.message == "Success" && json.data.user.role == 'user') {
+              window.location.href = "view-menu.htm";
+            } else if (json.message == "Success" && json.data.user.role == 'restaurant') {
+              window.location.href = "edit-menu.htm";
+            }
           });
-
         }
         else return;
-
     });
 
   </script>
-
 </body>
-
 </html>

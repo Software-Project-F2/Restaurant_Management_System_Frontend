@@ -24,7 +24,7 @@ async function addItem(){
     newItem = {
         "name" : itemName.value,
         "price" : itemPrice.value,
-        "quantity": itemQuantity.value
+        "description": itemQuantity.value + " items are available"
     };
 
     fetch('https://restro-management.vercel.app/menu/add', {
@@ -59,7 +59,7 @@ async function addItem(){
             });
 }
 
-function createColumn(iName, iPrice, iQuantity){
+function createColumn(iName, iPrice, iQuantity, id){
     let column = document.createElement("div");
     column.classList.add("col-lg-3", "col-md-6")
     let itemCard = document.createElement("div");
@@ -70,11 +70,11 @@ function createColumn(iName, iPrice, iQuantity){
     itemCard.appendChild(name);
     let price = document.createElement("h4");
     price.classList.add("item-price");
-    price.innerHTML = "Rs. " + iPrice; 
+    price.innerHTML = "Rs. " + iPrice;
     itemCard.appendChild(price);
     let quantity = document.createElement("em");
     price.classList.add("item-quantity");
-    quantity.innerHTML = iQuantity + " items are available"; 
+    quantity.innerHTML = iQuantity + "";
     itemCard.appendChild(quantity);
     let delButn = document.createElement("button");
     delButn.classList.add("butn", "del-butn");
@@ -82,13 +82,13 @@ function createColumn(iName, iPrice, iQuantity){
     delButn.addEventListener("click", deleteItem);
     itemCard.appendChild(delButn);
     column.appendChild(itemCard);
+    itemCard.setAttribute('data-id', id);
     return column;
 }
 
 const id = sessionStorage.getItem("userId");
 
 function displayMenu(ic){
-    const menu = document.getElementById("menu");
     fetch('https://restro-management.vercel.app/menu/getall/' + id, {
         headers: {
             'Content-type': 'application/json; charset=UTF-8',
@@ -98,7 +98,6 @@ function displayMenu(ic){
     .then((response) => response.json())
     .then((json) => {
         json.forEach(item => {
-            
             let currentRow = document.querySelector(".row"+rowCount);
             const menu = document.getElementById("menu");
             ic++;
@@ -109,7 +108,7 @@ function displayMenu(ic){
                 menu.appendChild(currentRow);
             }
             
-            let column = createColumn(item.name, item.price, item.quantity);
+            let column = createColumn(item.name, item.price, item.description, item._id);
             currentRow.appendChild(column);
         });
         itemCount = ic;
@@ -117,7 +116,18 @@ function displayMenu(ic){
 }
 
 function deleteItem(e){
-    let delColumn =  e.srcElement.parentElement.parentElement;
-    let row = delColumn.parentElement;
-    console.log(row);
+    let delCard =  e.srcElement.parentElement;
+    let id = delCard.getAttribute("data-id");
+    fetch('https://restro-management.vercel.app/menu/delete/' + id, {
+        method: 'DELETE',
+        headers: {
+            'Content-type': 'application/json; charset=UTF-8',
+            Authorization: "Bearer " + sessionStorage.getItem("jwtToken")
+        }
+    })
+    .then((response) => response.json())
+    .then((json) => {
+        delCard.parentElement.remove();
+        console.log(json);
+    })
 }

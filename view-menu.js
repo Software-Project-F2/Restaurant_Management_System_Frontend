@@ -58,18 +58,18 @@ async function displayMenu(){
                 menu.appendChild(currentRow);
             }
             
-            let column = createColumn(item.name, item.price, item.quantity);
+            let column = createColumn(item.name, item.price, item.description, item._id);
             currentRow.appendChild(column);
         });
         itemCount = ic;
     });
 }
 
-function createColumn(iName, iPrice, iQuantity){
+function createColumn(iName, iPrice, iQuantity, id){
     let column = document.createElement("div");
     column.classList.add("col-lg-3", "col-md-6")
     let itemCard = document.createElement("div");
-    itemCard.classList.add("item-card", );
+    itemCard.classList.add("item-card");
     let name = document.createElement("h3");
     name.classList.add("item-name");
     name.innerHTML = iName;
@@ -80,7 +80,7 @@ function createColumn(iName, iPrice, iQuantity){
     itemCard.appendChild(price);
     let quantity = document.createElement("em");
     quantity.classList.add("item-quantity");
-    quantity.innerHTML = iQuantity + " items are available"; 
+    quantity.innerHTML = iQuantity + ""; 
     itemCard.appendChild(quantity);
     let addButn = document.createElement("button");
     addButn.classList.add("butn", "add-butn");
@@ -88,16 +88,58 @@ function createColumn(iName, iPrice, iQuantity){
     itemCard.appendChild(addButn);
     addButn.addEventListener("click", addItem)
     column.appendChild(itemCard);
+    itemCard.setAttribute('data-id', id); 
     return column;
 }
 
 function addItem(e){
     let itemCard = e.srcElement.parentElement;
     let name = itemCard.getElementsByClassName("item-name")[0].innerHTML;
+    let id = e.srcElement.parentElement.getAttribute("data-id");
     let cartItem = document.createElement("div");
     cartItem.classList.add("cart-item");
     cartItem.innerHTML = name;
+    cartItem.setAttribute('data-id', id);
     let cart = document.getElementsByClassName("cart")[0];
     cart.appendChild(cartItem);
+    console.log(cartItem);
+}
 
+function placeOrder() {
+    const customerId = sessionStorage.getItem("userId");
+    const cartItems = document.querySelectorAll('.cart-item');
+    const items = [];
+
+    cartItems.forEach(cartItem => {
+        console.log(cartItem);
+        const itemName = cartItem.getAttribute("data-id");
+        const itemQuantity = 1;
+        items.push({ name: itemName, quantity: itemQuantity });
+    });
+
+    const requestBody = {
+        restaurant: resId,
+        customer: customerId,
+        items: items
+    };
+
+    fetch('https://restro-management.vercel.app/order/create', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: "Bearer " + sessionStorage.getItem("jwtToken")
+        },
+        body: JSON.stringify(requestBody)
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log("Order placed successfully:", data);
+        alert("Your order has been placed!");
+        const cart = document.querySelector('.cart');
+        cart.remoreChild(cartItems);
+    })
+    .catch(error => {
+        console.error("Error placing order:", error);
+        alert("Error placing order. Please try again later.");
+    });
 }
